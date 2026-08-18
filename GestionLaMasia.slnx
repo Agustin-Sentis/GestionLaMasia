@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/GestionLaMasia.Application/GestionLaMasia.Application.csproj" />
+    <Project Path="src/GestionLaMasia.Domain/GestionLaMasia.Domain.csproj" />
+    <Project Path="src/GestionLaMasia.Infrastructure/GestionLaMasia.Infrastructure.csproj" />
+    <Project Path="src/GestionLaMasia.Presentation/GestionLaMasia.Presentation.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,6 @@
+@GestionLaMasia.Presentation_HostAddress = http://localhost:5229
+
+GET {{GestionLaMasia.Presentation_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
