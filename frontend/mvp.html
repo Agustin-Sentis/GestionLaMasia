@@ -24,6 +24,7 @@
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
+      overflow-x: hidden;
       color: var(--ink);
       background:
         radial-gradient(circle at 15% 12%, rgba(217,255,67,.18), transparent 24rem),
@@ -54,7 +55,7 @@
       backdrop-filter: blur(14px);
       border-bottom: 2px solid var(--ink);
     }
-    .nav { min-height: 76px; display: flex; align-items: center; gap: 26px; }
+    .nav { min-height: 76px; display: flex; align-items: center; gap: 22px; }
     .brand {
       display: flex;
       align-items: center;
@@ -165,8 +166,8 @@
     .court-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
     .court-card {
       position: relative;
-      min-height: 310px;
-      padding: 22px;
+      min-width: 0;
+      min-height: 420px;
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -175,26 +176,20 @@
       background: var(--white);
       transition: transform .2s ease, box-shadow .2s ease;
     }
-    .court-card:nth-child(2) { background: var(--blue); transform: translateY(16px); }
+    .court-card:nth-child(2) { background: var(--blue); }
     .court-card:nth-child(3) { background: #ffd3c4; }
     .court-card:hover, .court-card.selected { transform: translateY(-5px) rotate(-.5deg); box-shadow: var(--shadow); }
     .court-card.selected { outline: 5px solid var(--acid); }
-    .court-card::after {
-      content: "";
-      position: absolute;
-      width: 190px;
-      height: 110px;
-      right: -35px;
-      top: 52px;
-      border: 2px solid rgba(19,32,25,.33);
-      background: repeating-linear-gradient(90deg, transparent 0 22px, rgba(19,32,25,.07) 22px 44px);
-      transform: rotate(-8deg);
-    }
-    .court-number { font-family: Impact, sans-serif; font-size: 5rem; line-height: .9; opacity: .14; }
-    .court-card h3 { margin: auto 0 6px; font-family: Impact, sans-serif; font-size: 2rem; text-transform: uppercase; letter-spacing: .03em; }
+    .court-media { position: relative; height: 205px; flex: 0 0 205px; overflow: hidden; border-bottom: 2px solid var(--ink); background: #223229; }
+    .court-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, rgba(8,20,12,.7)); pointer-events: none; }
+    .court-media img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform .45s ease; }
+    .court-card:hover .court-media img { transform: scale(1.04); }
+    .court-number { position: absolute; right: 14px; bottom: 8px; z-index: 1; color: var(--white); font-family: Impact, sans-serif; font-size: 4.7rem; line-height: .9; text-shadow: 2px 2px 0 var(--ink); }
+    .court-content { min-width: 0; flex: 1; display: flex; flex-direction: column; padding: 20px; }
+    .court-card h3 { margin: 0 0 6px; font-family: Impact, sans-serif; font-size: 2rem; text-transform: uppercase; letter-spacing: .03em; }
     .court-meta { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; }
     .chip { padding: 5px 9px; border: 1.5px solid var(--ink); border-radius: 999px; background: rgba(255,255,255,.4); font-size: .72rem; font-weight: 800; }
-    .court-bottom { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .court-bottom { margin-top: auto; display: flex; align-items: end; justify-content: space-between; gap: 12px; }
     .price { font-size: 1.1rem; font-weight: 900; }
     .price small { display: block; color: var(--muted); font-size: .62rem; letter-spacing: .09em; text-transform: uppercase; }
 
@@ -203,8 +198,8 @@
     .about-copy h3 { font-family: Impact, sans-serif; font-size: 2.4rem; text-transform: uppercase; letter-spacing: .03em; }
     .about-copy p { font-family: Georgia, serif; font-size: 1.05rem; }
     .about-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
-    .photo-grid { min-height: 480px; display: grid; grid-template-columns: 1.2fr 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 12px; }
-    .photo-card { position: relative; min-height: 190px; overflow: hidden; border: 2px solid var(--ink); border-radius: var(--radius); background: #223229; }
+    .photo-grid { min-width: 0; min-height: 480px; display: grid; grid-template-columns: 1.2fr 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 12px; }
+    .photo-card { position: relative; min-width: 0; min-height: 190px; margin: 0; overflow: hidden; border: 2px solid var(--ink); border-radius: var(--radius); background: #223229; }
     .photo-card:first-child { grid-row: 1 / 3; }
     .photo-card img { width: 100%; height: 100%; display: block; object-fit: cover; }
     .photo-placeholder { width: 100%; height: 100%; display: grid; place-items: center; padding: 24px; color: var(--paper); text-align: center; background: repeating-linear-gradient(-35deg, #203126 0 18px, #263b2d 18px 36px); }
@@ -395,12 +390,15 @@
     }
     .toast.show { transform: none; opacity: 1; }
 
-    @media (max-width: 900px) {
+    @media (max-width: 1080px) {
       nav { display: none; }
+    }
+    @media (max-width: 900px) {
       .hero-grid, .league-layout, .about-layout, .player-layout, .birthday-layout { grid-template-columns: 1fr; }
       .ticket { max-width: 440px; margin: 12px auto 0; }
       .court-grid { grid-template-columns: 1fr; }
-      .court-card:nth-child(2) { transform: none; }
+      .court-card { min-height: 0; }
+      .court-media { height: 280px; flex-basis: 280px; }
       .slots { grid-template-columns: repeat(3, 1fr); }
       .slot { border-bottom: 1px solid rgba(255,255,255,.14); }
       .photo-grid { min-height: 400px; }
@@ -428,6 +426,9 @@
       .form-row, .pay-options { grid-template-columns: 1fr; }
       .photo-grid { min-height: auto; grid-template-columns: 1fr; grid-template-rows: repeat(5, 230px); }
       .photo-card:first-child { grid-row: auto; }
+      .court-media { height: 220px; flex-basis: 220px; }
+      .court-bottom { align-items: stretch; flex-direction: column; }
+      .court-bottom .btn { width: 100%; }
       .birthday-list { grid-template-columns: 1fr; }
       .services-carousel { grid-auto-columns: 82%; }
       th:nth-child(3), td:nth-child(3), th:nth-child(4), td:nth-child(4) { display: none; }
@@ -509,11 +510,11 @@
             </div>
           </article>
           <div class="photo-grid" aria-label="Galería del complejo">
-            <figure class="photo-card"><img src="assets/gallery/la-masia-1.jpg" alt="Cancha de césped sintético de La Masia durante el día"><figcaption class="photo-label">Cancha de día</figcaption></figure>
-            <figure class="photo-card"><img src="assets/gallery/la-masia-2.jpg" alt="Cancha de La Masia iluminada durante la noche"><figcaption class="photo-label">Fútbol nocturno</figcaption></figure>
-            <figure class="photo-card"><img src="assets/gallery/la-masia-3.jpg" alt="Cumpleaños con mesas y juegos en La Masia"><figcaption class="photo-label">Cumpleaños</figcaption></figure>
-            <figure class="photo-card"><img src="assets/gallery/la-masia-4.jpg" alt="Patio con mesas junto a la cancha"><figcaption class="photo-label">Patio y mesas</figcaption></figure>
-            <figure class="photo-card"><img src="assets/gallery/la-masia-5.jpg" alt="Sector de parrillas y mesas de La Masia"><figcaption class="photo-label">Parrillas</figcaption></figure>
+            <figure class="photo-card"><img src="assets/gallery/la-masia-1.webp" loading="lazy" decoding="async" alt="Cancha de césped sintético de La Masia durante el día"><figcaption class="photo-label">Cancha de día</figcaption></figure>
+            <figure class="photo-card"><img src="assets/gallery/la-masia-2.webp" loading="lazy" decoding="async" alt="Cancha de La Masia iluminada durante la noche"><figcaption class="photo-label">Fútbol nocturno</figcaption></figure>
+            <figure class="photo-card"><img src="assets/gallery/la-masia-3.webp" loading="lazy" decoding="async" alt="Cumpleaños con mesas y juegos en La Masia"><figcaption class="photo-label">Cumpleaños</figcaption></figure>
+            <figure class="photo-card"><img src="assets/gallery/la-masia-4.webp" loading="lazy" decoding="async" alt="Patio con mesas junto a la cancha"><figcaption class="photo-label">Patio y mesas</figcaption></figure>
+            <figure class="photo-card"><img src="assets/gallery/la-masia-5.webp" loading="lazy" decoding="async" alt="Sector de parrillas y mesas de La Masia"><figcaption class="photo-label">Parrillas</figcaption></figure>
           </div>
         </div>
       </div>
@@ -740,9 +741,9 @@
 
   <script>
     const courts = [
-      { id: 1, name: 'Cancha 1', size: 'Fútbol 5', players: '10 jugadores', surface: 'Sintético', price: 28000, color: '#fffdf5' },
-      { id: 2, name: 'Cancha 2', size: 'Fútbol 7', players: '14 jugadores', surface: 'Sintético premium', price: 38000, color: '#a6dfff' },
-      { id: 3, name: 'Cancha 3', size: 'Fútbol 8', players: '16 jugadores', surface: 'Con iluminación', price: 45000, color: '#ffd3c4' }
+      { id: 1, name: 'Cancha 1', size: 'Fútbol 5', players: '10 jugadores', surface: 'Sintético', price: 28000, image: 'assets/gallery/la-masia-1.webp' },
+      { id: 2, name: 'Cancha 2', size: 'Fútbol 7', players: '14 jugadores', surface: 'Sintético premium', price: 38000, image: 'assets/gallery/la-masia-2.webp' },
+      { id: 3, name: 'Cancha 3', size: 'Fútbol 8', players: '16 jugadores', surface: 'Con iluminación', price: 45000, image: 'assets/gallery/la-masia-4.webp' }
     ];
     const occupiedTimes = new Set(['17:00', '19:00', '21:00', '23:00', '00:00']);
     const playableTimes = ['16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00','00:00','01:00','02:00'];
@@ -791,10 +792,12 @@
     function renderCourts() {
       document.getElementById('courtGrid').innerHTML = courts.map(c => `
         <article class="court-card ${selectedCourt === c.id ? 'selected' : ''}" onclick="selectCourt(${c.id})">
-          <div class="court-number">0${c.id}</div>
-          <h3>${c.name}</h3>
-          <div class="court-meta"><span class="chip">${c.size}</span><span class="chip">${c.players}</span><span class="chip">${c.surface}</span></div>
-          <div class="court-bottom"><div class="price"><small>Desde</small>${money(c.price)} / hora</div><button class="btn small" type="button">Elegir</button></div>
+          <div class="court-media"><img src="${c.image}" alt="${c.name} de La Masia" decoding="async"><div class="court-number">0${c.id}</div></div>
+          <div class="court-content">
+            <h3>${c.name}</h3>
+            <div class="court-meta"><span class="chip">${c.size}</span><span class="chip">${c.players}</span><span class="chip">${c.surface}</span></div>
+            <div class="court-bottom"><div class="price"><small>Desde</small>${money(c.price)} / hora</div><button class="btn small" type="button">Ver horarios</button></div>
+          </div>
         </article>`).join('');
       document.getElementById('fieldSelect').innerHTML = courts.map(c => `<option value="${c.id}" ${selectedCourt === c.id ? 'selected' : ''}>${c.name}</option>`).join('');
     }
