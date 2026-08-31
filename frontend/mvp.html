@@ -90,6 +90,7 @@
       font-weight: 800;
     }
     .live i { width: 8px; height: 8px; border-radius: 50%; background: #23b55b; box-shadow: 0 0 0 4px rgba(35,181,91,.15); animation: pulse 1.8s infinite; }
+    .account-btn { white-space: nowrap; }
     @keyframes pulse { 50% { transform: scale(.7); opacity: .65; } }
 
     .hero { padding: 78px 0 62px; overflow: hidden; }
@@ -197,6 +198,20 @@
     .price { font-size: 1.1rem; font-weight: 900; }
     .price small { display: block; color: var(--muted); font-size: .62rem; letter-spacing: .09em; text-transform: uppercase; }
 
+    .about-layout { display: grid; grid-template-columns: .78fr 1.22fr; gap: 28px; align-items: stretch; }
+    .about-copy { padding: 30px; border: 2px solid var(--ink); border-radius: var(--radius); background: var(--acid); box-shadow: var(--shadow); }
+    .about-copy h3 { font-family: Impact, sans-serif; font-size: 2.4rem; text-transform: uppercase; letter-spacing: .03em; }
+    .about-copy p { font-family: Georgia, serif; font-size: 1.05rem; }
+    .about-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    .photo-grid { min-height: 480px; display: grid; grid-template-columns: 1.2fr 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 12px; }
+    .photo-card { position: relative; min-height: 190px; overflow: hidden; border: 2px solid var(--ink); border-radius: var(--radius); background: #223229; }
+    .photo-card:first-child { grid-row: 1 / 3; }
+    .photo-card img { width: 100%; height: 100%; display: block; object-fit: cover; }
+    .photo-placeholder { width: 100%; height: 100%; display: grid; place-items: center; padding: 24px; color: var(--paper); text-align: center; background: repeating-linear-gradient(-35deg, #203126 0 18px, #263b2d 18px 36px); }
+    .photo-placeholder strong { display: block; font-family: Impact, sans-serif; font-size: 2rem; letter-spacing: .06em; text-transform: uppercase; }
+    .photo-placeholder small { display: block; margin-top: 8px; color: #b8c4bb; }
+    .photo-label { position: absolute; left: 12px; bottom: 12px; padding: 6px 9px; border: 1.5px solid var(--ink); border-radius: 99px; background: var(--paper); font-size: .68rem; font-weight: 900; text-transform: uppercase; }
+
     #turnos { background: var(--ink); color: var(--paper); }
     #turnos .section-kicker, #turnos .section-note { color: #aeb8b1; }
     .schedule-shell { border: 2px solid var(--paper); border-radius: 24px; overflow: hidden; background: #1a2b21; }
@@ -283,6 +298,36 @@
     .own-badge { padding: 8px 11px; border: 1.5px solid var(--ink); border-radius: 99px; background: var(--paper-2); font-size: .69rem; font-weight: 900; text-transform: uppercase; letter-spacing: .06em; }
     .empty { color: var(--muted); font-family: Georgia, serif; font-style: italic; }
 
+    .player-layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: 22px; }
+    .player-form, .player-board { padding: 24px; border: 2px solid var(--ink); border-radius: var(--radius); box-shadow: 5px 5px 0 var(--ink); }
+    .player-form { background: var(--orange); }
+    .player-board { background: var(--white); }
+    .player-form h3, .player-board h3 { font-family: Impact, sans-serif; font-size: 1.8rem; text-transform: uppercase; letter-spacing: .04em; }
+    .player-form .btn { width: 100%; margin-top: 20px; }
+    .player-notice { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 14px; padding: 16px 0; border-top: 1px solid var(--line); }
+    .player-notice:first-of-type { border-top: 0; }
+    .player-count { display: inline-block; margin-top: 6px; padding: 4px 8px; border: 1.5px solid var(--ink); border-radius: 99px; background: var(--acid); font-size: .68rem; font-weight: 900; }
+
+    .birthday { background: #ffd3c4; border-block: 2px solid var(--ink); }
+    .birthday-layout { display: grid; grid-template-columns: .8fr 1.2fr; gap: 26px; align-items: center; }
+    .birthday-copy { padding: 28px; border: 2px solid var(--ink); border-radius: var(--radius); background: var(--white); box-shadow: var(--shadow); }
+    .birthday-copy h3 { font-family: Impact, sans-serif; font-size: 2.3rem; text-transform: uppercase; }
+    .birthday-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
+    .birthday-list span { padding: 10px; border: 1.5px solid var(--ink); border-radius: 10px; background: var(--paper); font-size: .8rem; font-weight: 800; }
+    .services-wrap { min-width: 0; }
+    .services-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+    .services-head h3 { margin: 0; font-family: Impact, sans-serif; font-size: 2rem; text-transform: uppercase; }
+    .carousel-controls { display: flex; gap: 8px; }
+    .carousel-controls button { width: 38px; height: 38px; border: 2px solid var(--ink); border-radius: 50%; background: var(--acid); cursor: pointer; font-weight: 900; }
+    .services-carousel { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(220px, 42%); gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 4px 7px 12px 0; }
+    .services-carousel::-webkit-scrollbar { display: none; }
+    .service-card { min-height: 220px; display: flex; flex-direction: column; padding: 22px; border: 2px solid var(--ink); border-radius: var(--radius); background: var(--blue); box-shadow: 5px 5px 0 var(--ink); scroll-snap-align: start; }
+    .service-card:nth-child(even) { background: var(--acid); }
+    .service-icon { font-size: 2.4rem; }
+    .service-card h4 { margin: auto 0 5px; font-family: Impact, sans-serif; font-size: 1.6rem; text-transform: uppercase; }
+    .service-card p { margin: 0; color: #39463e; font-size: .82rem; }
+    .charcoal-note { margin-top: 16px; padding: 14px; border: 2px dashed var(--ink); border-radius: 12px; background: var(--paper); font-weight: 850; }
+
     #ranking { padding-top: 0; }
     .ranking-card { overflow: hidden; }
     .ranking-title { padding: 22px 24px; display: flex; justify-content: space-between; align-items: center; background: var(--blue); border-bottom: 2px solid var(--ink); }
@@ -352,17 +397,20 @@
 
     @media (max-width: 900px) {
       nav { display: none; }
-      .hero-grid, .league-layout { grid-template-columns: 1fr; }
+      .hero-grid, .league-layout, .about-layout, .player-layout, .birthday-layout { grid-template-columns: 1fr; }
       .ticket { max-width: 440px; margin: 12px auto 0; }
       .court-grid { grid-template-columns: 1fr; }
       .court-card:nth-child(2) { transform: none; }
       .slots { grid-template-columns: repeat(3, 1fr); }
       .slot { border-bottom: 1px solid rgba(255,255,255,.14); }
+      .photo-grid { min-height: 400px; }
     }
     @media (max-width: 600px) {
       .wrap { width: min(100% - 22px, 1180px); }
       .nav { min-height: 66px; }
       .live span { display: none; }
+      .live { display: none; }
+      .account-btn { padding: 9px 12px; font-size: .7rem; }
       .hero { padding-top: 54px; }
       h1 { font-size: clamp(3.6rem, 22vw, 6rem); }
       section { padding: 58px 0; }
@@ -378,6 +426,10 @@
       .wa-reply { grid-column: 1 / -1; }
       .wa-reply input { flex: 1; }
       .form-row, .pay-options { grid-template-columns: 1fr; }
+      .photo-grid { min-height: auto; grid-template-columns: 1fr; grid-template-rows: repeat(5, 230px); }
+      .photo-card:first-child { grid-row: auto; }
+      .birthday-list { grid-template-columns: 1fr; }
+      .services-carousel { grid-auto-columns: 82%; }
       th:nth-child(3), td:nth-child(3), th:nth-child(4), td:nth-child(4) { display: none; }
       .footer-inner { display: block; }
       .footer-small { margin-top: 18px; }
@@ -390,11 +442,14 @@
       <a class="brand" href="#inicio"><span class="ball-mark"><img src="assets/logo-la-masia.jpg" alt="Logo de La Masia"></span> La Masia</a>
       <nav aria-label="Navegación principal">
         <a href="#canchas">Canchas</a>
+        <a href="#lugar">El lugar</a>
         <a href="#turnos">Turnos</a>
         <a href="#rival">Buscar rival</a>
-        <a href="#ranking">Ranking</a>
+        <a href="#falta-uno">Falta uno</a>
+        <a href="#cumpleanos">Cumples</a>
       </nav>
       <div class="live"><i></i><span>Disponibilidad en vivo</span><b id="clock">--:--</b></div>
+      <button class="btn small account-btn" id="accountButton" onclick="openLogin()">Ingresar</button>
     </div>
   </header>
 
@@ -434,6 +489,33 @@
           <p class="section-note">Cada cancha tiene su carácter. Elegí una y abajo vas a ver sus turnos actualizados.</p>
         </div>
         <div class="court-grid" id="courtGrid"></div>
+      </div>
+    </section>
+
+    <section id="lugar">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="section-kicker">Más que fútbol</div><h2>La Masia por dentro</h2></div>
+          <p class="section-note">Canchas, parrillas y espacio para compartir antes y después del partido.</p>
+        </div>
+        <div class="about-layout">
+          <article class="about-copy">
+            <h3>Un lugar para quedarse</h3>
+            <p>La Masia es un complejo pensado para jugar, reunirse y festejar. Además de las tres canchas, ofrece espacios para comer y organizar cumpleaños con atención directa del equipo del lugar.</p>
+            <p><strong>Conocé las canchas, el patio, las parrillas y el espacio donde también se organizan cumpleaños.</strong></p>
+            <div class="about-actions">
+              <button class="btn dark" onclick="openInstagram()">Ver Instagram</button>
+              <a class="btn" href="#cumpleanos">Quiero festejar</a>
+            </div>
+          </article>
+          <div class="photo-grid" aria-label="Galería del complejo">
+            <figure class="photo-card"><img src="assets/gallery/la-masia-1.jpg" alt="Cancha de césped sintético de La Masia durante el día"><figcaption class="photo-label">Cancha de día</figcaption></figure>
+            <figure class="photo-card"><img src="assets/gallery/la-masia-2.jpg" alt="Cancha de La Masia iluminada durante la noche"><figcaption class="photo-label">Fútbol nocturno</figcaption></figure>
+            <figure class="photo-card"><img src="assets/gallery/la-masia-3.jpg" alt="Cumpleaños con mesas y juegos en La Masia"><figcaption class="photo-label">Cumpleaños</figcaption></figure>
+            <figure class="photo-card"><img src="assets/gallery/la-masia-4.jpg" alt="Patio con mesas junto a la cancha"><figcaption class="photo-label">Patio y mesas</figcaption></figure>
+            <figure class="photo-card"><img src="assets/gallery/la-masia-5.jpg" alt="Sector de parrillas y mesas de La Masia"><figcaption class="photo-label">Parrillas</figcaption></figure>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -477,7 +559,7 @@
       <div class="wrap">
         <div class="section-head">
           <div><div class="section-kicker">Modo campeonato</div><h2>¿Falta rival?</h2></div>
-          <p class="section-note">Publicá el nombre del equipo y el horario. No hace falta cargar jugadores.</p>
+          <p class="section-note">Indicá el rango en el que pueden jugar. Otro equipo puede aceptar si coincide con esa ventana.</p>
         </div>
         <div class="league-layout">
           <form class="challenge-form" id="challengeForm">
@@ -492,8 +574,18 @@
                 <select class="control" id="challengeField"><option>Cancha 1</option><option>Cancha 2</option><option>Cancha 3</option></select>
               </div>
               <div>
-                <label for="challengeTime">Horario</label>
-                <select class="control" id="challengeTime"><option>19:00</option><option>20:00</option><option>21:00</option><option>22:00</option></select>
+                <label for="challengeDate">Fecha</label>
+                <input class="control" type="date" id="challengeDate" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div>
+                <label for="challengeFrom">Podemos desde</label>
+                <select class="control" id="challengeFrom" required></select>
+              </div>
+              <div>
+                <label for="challengeTo">Hasta</label>
+                <select class="control" id="challengeTo" required></select>
               </div>
             </div>
             <button class="btn dark" type="submit">Quiero jugar</button>
@@ -501,6 +593,35 @@
           <div class="challenge-board">
             <h3>Equipos esperando</h3>
             <div id="challengeList"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="falta-uno">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="section-kicker">Completá el equipo</div><h2>Nos falta uno</h2></div>
+          <p class="section-note">Publicá cuántas personas faltan. Quien quiera sumarse puede contactar al responsable por WhatsApp.</p>
+        </div>
+        <div class="player-layout">
+          <form class="player-form" id="playerForm">
+            <h3>Publicar búsqueda</h3>
+            <label for="playerTeam">Equipo o grupo</label>
+            <input class="control" id="playerTeam" required placeholder="Ej: Los del Miércoles">
+            <label for="playerPhone">WhatsApp de contacto</label>
+            <input class="control" id="playerPhone" required inputmode="tel" placeholder="341 555 0000">
+            <div class="form-row">
+              <div><label for="playerDate">Fecha</label><input class="control" type="date" id="playerDate" required></div>
+              <div><label for="playerTime">Hora</label><select class="control" id="playerTime" required></select></div>
+            </div>
+            <label for="playerCount">¿Cuántas personas faltan?</label>
+            <select class="control" id="playerCount"><option value="1">1 jugador</option><option value="2">2 jugadores</option><option value="3">3 jugadores</option></select>
+            <button class="btn dark" type="submit">Publicar aviso</button>
+          </form>
+          <div class="player-board">
+            <h3>Avisos activos</h3>
+            <div id="playerNotices"></div>
           </div>
         </div>
       </div>
@@ -525,12 +646,39 @@
         </div>
       </div>
     </section>
+
+    <section class="birthday" id="cumpleanos">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="section-kicker">Cumpleaños en La Masia</div><h2>Jugá, comé, festejá</h2></div>
+          <p class="section-note">Consultá disponibilidad y organizá los detalles directamente con una persona por WhatsApp.</p>
+        </div>
+        <div class="birthday-layout">
+          <article class="birthday-copy">
+            <h3>Tu festejo, sin vueltas</h3>
+            <p>Elegí una fecha disponible, mirá los servicios incluidos y hablá con el equipo de La Masia para coordinar cantidad de personas, cancha y comida.</p>
+            <div class="birthday-list"><span>⚽ Cancha reservada</span><span>🔥 Parrilla sin cargo</span><span>🪑 Mesas y espacio para comer</span><span>🥤 Vasos y cubiertos</span></div>
+            <button class="btn primary" onclick="openBirthdayWhatsapp()">Consultar cumpleaños por WhatsApp</button>
+          </article>
+          <div class="services-wrap">
+            <div class="services-head"><h3>Servicios gratuitos</h3><div class="carousel-controls"><button onclick="moveServices(-1)" aria-label="Anterior">←</button><button onclick="moveServices(1)" aria-label="Siguiente">→</button></div></div>
+            <div class="services-carousel" id="servicesCarousel">
+              <article class="service-card"><div class="service-icon">🔥</div><h4>Parrillas</h4><p>Disponibles sin costo para cocinar y compartir después del partido.</p></article>
+              <article class="service-card"><div class="service-icon">🍴</div><h4>Cubiertos</h4><p>El lugar presta los cubiertos necesarios para el encuentro.</p></article>
+              <article class="service-card"><div class="service-icon">🥤</div><h4>Vasos</h4><p>Vasos incluidos para que no tengas que llevarlos desde tu casa.</p></article>
+              <article class="service-card"><div class="service-icon">🪑</div><h4>Mesas</h4><p>Mesas y espacio para sentarse a comer con el grupo.</p></article>
+            </div>
+            <div class="charcoal-note">Única condición: el carbón para usar la parrilla se compra en La Masia.</div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
     <div class="wrap footer-inner">
       <div class="footer-big">Nos vemos<br>en la cancha.</div>
-      <div class="footer-small">MVP funcional. Las reservas y desafíos se guardan en este navegador para la demostración. La integración real se conecta luego al backend.</div>
+      <div class="footer-small">MVP visual. <button class="btn small" onclick="openInstagram()">Instagram</button> <a class="btn small" href="admin-mvp.html">Panel administrador</a></div>
     </div>
   </footer>
 
@@ -578,6 +726,16 @@
     </form>
   </div>
 
+  <div class="modal-backdrop" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+    <form class="modal" id="loginForm">
+      <div class="modal-head"><h3 id="loginTitle">Ingresar</h3><button class="close" type="button" onclick="closeModal('loginModal')" aria-label="Cerrar">×</button></div>
+      <p>Para reservar, publicar desafíos o buscar jugadores necesitamos identificarte. En esta demo alcanza con tu email.</p>
+      <label for="loginEmail">Tu email</label>
+      <input class="control" type="email" id="loginEmail" required placeholder="vos@email.com">
+      <button class="btn primary" type="submit">Continuar</button>
+    </form>
+  </div>
+
   <div class="toast" id="toast" role="status"></div>
 
   <script>
@@ -587,21 +745,48 @@
       { id: 3, name: 'Cancha 3', size: 'Fútbol 8', players: '16 jugadores', surface: 'Con iluminación', price: 45000, color: '#ffd3c4' }
     ];
     const occupiedTimes = new Set(['17:00', '19:00', '21:00', '23:00', '00:00']);
+    const playableTimes = ['16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00','00:00','01:00','02:00'];
+    const INSTAGRAM_URL = 'https://www.instagram.com/complejolamasia';
+    const OFFICIAL_WHATSAPP = '';
     let selectedCourt = 1;
     let selectedSlot = null;
     let selectedChallengeIndex = null;
     let countdownTimer = null;
     let countdownSeconds = 300;
+    const todayISO = () => new Date().toISOString().slice(0, 10);
     const reservations = JSON.parse(localStorage.getItem('lc-reservations') || '[]');
     const confirmedMatches = JSON.parse(localStorage.getItem('lc-confirmed-matches') || '[]');
-    let challenges = JSON.parse(localStorage.getItem('lc-challenges-v2') || 'null') || [
-      { team: 'Los del Fondo', phone: '3415551010', field: 'Cancha 2', time: '20:00', owned: false },
-      { team: 'Deportivo Jueves', phone: '3415552020', field: 'Cancha 1', time: '22:00', owned: false },
-      { team: 'La 12 del Parque', phone: '3415553030', field: 'Cancha 3', time: '21:00', owned: false }
+    let challenges = JSON.parse(localStorage.getItem('lc-challenges-v3') || 'null') || [
+      { team: 'Los del Fondo', phone: 'demo', field: 'Cancha 2', date: todayISO(), from: '18:00', to: '21:00', owned: false },
+      { team: 'Deportivo Jueves', phone: 'demo', field: 'Cancha 1', date: todayISO(), from: '21:00', to: '23:00', owned: false },
+      { team: 'La 12 del Parque', phone: 'demo', field: 'Cancha 3', date: todayISO(), from: '19:00', to: '22:00', owned: false }
     ];
+    let playerNotices = JSON.parse(localStorage.getItem('lc-player-notices') || 'null') || [
+      { team: 'Los del Miércoles', phone: 'demo', date: todayISO(), time: '20:00', count: 1, owned: false },
+      { team: 'Fútbol y Birra', phone: 'demo', date: todayISO(), time: '22:00', count: 2, owned: false }
+    ];
+    let currentUserEmail = localStorage.getItem('lc-user-email') || '';
 
     const money = value => new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', maximumFractionDigits: 0 }).format(value);
-    const todayISO = () => new Date().toISOString().slice(0, 10);
+    const formatDate = value => new Date(`${value}T12:00:00`).toLocaleDateString('es-AR', { day:'numeric', month:'short' });
+
+    function isBlocked(email) {
+      const blocked = JSON.parse(localStorage.getItem('lc-blocked-users') || '[]');
+      return blocked.some(item => (item.email || '').toLowerCase() === email.toLowerCase());
+    }
+
+    function requireActiveUser() {
+      if (!currentUserEmail) {
+        openLogin();
+        toast('Ingresá con tu email para continuar.');
+        return false;
+      }
+      if (isBlocked(currentUserEmail)) {
+        toast('Este usuario está bloqueado y no puede realizar nuevas acciones.');
+        return false;
+      }
+      return true;
+    }
 
     function renderCourts() {
       document.getElementById('courtGrid').innerHTML = courts.map(c => `
@@ -653,6 +838,7 @@
     }
 
     function chooseSlot(time, state) {
+      if (!requireActiveUser()) return;
       selectedSlot = time;
       const court = courts.find(c => c.id === selectedCourt);
       const date = new Date(`${document.getElementById('dateInput').value}T12:00:00`).toLocaleDateString('es-AR', { weekday:'long', day:'numeric', month:'long' });
@@ -680,7 +866,7 @@
     document.getElementById('bookingForm').addEventListener('submit', event => {
       event.preventDefault();
       const payment = new FormData(event.currentTarget).get('payment');
-      reservations.push({ key: slotKey(selectedSlot), court: selectedCourt, time: selectedSlot, payment });
+      reservations.push({ key: slotKey(selectedSlot), court: selectedCourt, time: selectedSlot, payment, userEmail: currentUserEmail, status: 'Confirmada', paid: payment === 'Online' });
       localStorage.setItem('lc-reservations', JSON.stringify(reservations));
       closeModal('bookingModal');
       renderSlots();
@@ -699,29 +885,36 @@
       const target = document.getElementById('challengeList');
       if (!challenges.length) return target.innerHTML = '<p class="empty">Todavía no hay equipos esperando.</p>';
       target.innerHTML = challenges.map((c, index) => `
-        <div class="challenge"><div><div class="challenge-team">${escapeHtml(c.team)}</div><div class="challenge-meta">${c.field} · Hoy ${c.time}</div></div>${c.owned ? '<span class="own-badge">Tu publicación</span>' : `<button class="btn small orange" onclick="acceptChallenge(${index})">Jugarles</button>`}</div>`).join('');
+        <div class="challenge"><div><div class="challenge-team">${escapeHtml(c.team)}</div><div class="challenge-meta">${c.field} · ${formatDate(c.date)} · Entre ${c.from} y ${c.to}</div></div>${c.owned ? '<span class="own-badge">Tu publicación</span>' : `<button class="btn small orange" onclick="acceptChallenge(${index})">Jugarles</button>`}</div>`).join('');
     }
 
     document.getElementById('challengeForm').addEventListener('submit', event => {
       event.preventDefault();
+      if (!requireActiveUser()) return;
+      const from = document.getElementById('challengeFrom').value;
+      const to = document.getElementById('challengeTo').value;
+      if (playableTimes.indexOf(to) <= playableTimes.indexOf(from)) return toast('El horario “hasta” debe ser posterior al horario “desde”.');
       challenges.push({
         team: document.getElementById('teamName').value.trim(),
         phone: document.getElementById('challengePhone').value.trim(),
         field: document.getElementById('challengeField').value,
-        time: document.getElementById('challengeTime').value,
+        date: document.getElementById('challengeDate').value,
+        from,
+        to,
         owned: true
       });
-      localStorage.setItem('lc-challenges-v2', JSON.stringify(challenges));
+      localStorage.setItem('lc-challenges-v3', JSON.stringify(challenges));
       event.currentTarget.reset();
       renderChallenges();
       toast('Desafío publicado. Quedó marcado como tuyo y no podés aceptarlo vos mismo.');
     });
 
     function acceptChallenge(index) {
+      if (!requireActiveUser()) return;
       const rival = challenges[index];
       if (!rival || rival.owned) return toast('Este desafío lo publicaste vos. Debe aceptarlo otro equipo.');
       selectedChallengeIndex = index;
-      document.getElementById('acceptSummary').innerHTML = `Contra <strong>${escapeHtml(rival.team)}</strong><br>${rival.field} · Hoy ${rival.time}`;
+      document.getElementById('acceptSummary').innerHTML = `Contra <strong>${escapeHtml(rival.team)}</strong><br>${rival.field} · ${formatDate(rival.date)} · Entre ${rival.from} y ${rival.to}`;
       openModal('acceptModal');
     }
 
@@ -737,18 +930,105 @@
         teamB: acceptingTeam,
         phoneB: acceptingPhone,
         field: rival.field,
-        time: rival.time,
+        date: rival.date,
+        from: rival.from,
+        to: rival.to,
         confirmedAt: new Date().toISOString()
       });
       localStorage.setItem('lc-confirmed-matches', JSON.stringify(confirmedMatches));
       challenges.splice(selectedChallengeIndex, 1);
-      localStorage.setItem('lc-challenges-v2', JSON.stringify(challenges));
+      localStorage.setItem('lc-challenges-v3', JSON.stringify(challenges));
       selectedChallengeIndex = null;
       closeModal('acceptModal');
       event.currentTarget.reset();
       renderChallenges();
       toast(`Partido confirmado: ${acceptingTeam} vs. ${rival.team}. Avisos enviados a ambos WhatsApp.`);
     });
+
+    function renderPlayerNotices() {
+      const target = document.getElementById('playerNotices');
+      if (!playerNotices.length) return target.innerHTML = '<p class="empty">No hay búsquedas activas por ahora.</p>';
+      target.innerHTML = playerNotices.map((notice, index) => `
+        <article class="player-notice"><div><div class="challenge-team">${escapeHtml(notice.team)}</div><div class="challenge-meta">${formatDate(notice.date)} · ${notice.time}</div><span class="player-count">Faltan ${notice.count}</span></div>${notice.owned ? '<span class="own-badge">Tu aviso</span>' : `<button class="btn small primary" onclick="joinPlayerNotice(${index})">Me sumo</button>`}</article>`).join('');
+    }
+
+    document.getElementById('playerForm').addEventListener('submit', event => {
+      event.preventDefault();
+      if (!requireActiveUser()) return;
+      playerNotices.push({
+        team: document.getElementById('playerTeam').value.trim(),
+        phone: document.getElementById('playerPhone').value.trim(),
+        date: document.getElementById('playerDate').value,
+        time: document.getElementById('playerTime').value,
+        count: Number(document.getElementById('playerCount').value),
+        owned: true
+      });
+      localStorage.setItem('lc-player-notices', JSON.stringify(playerNotices));
+      event.currentTarget.reset();
+      setDateDefaults();
+      renderPlayerNotices();
+      toast('Aviso publicado. Las personas interesadas podrán contactarte por WhatsApp.');
+    });
+
+    function joinPlayerNotice(index) {
+      if (!requireActiveUser()) return;
+      const notice = playerNotices[index];
+      if (!notice || notice.owned) return;
+      if (notice.phone === 'demo') return toast('En la versión real se abrirá WhatsApp con un mensaje listo para el responsable.');
+      const message = encodeURIComponent(`Hola, vi en La Masia que les falta gente para jugar el ${formatDate(notice.date)} a las ${notice.time}. Me gustaría sumarme.`);
+      window.open(`https://wa.me/54${notice.phone.replace(/\D/g,'')}?text=${message}`, '_blank', 'noopener');
+    }
+
+    function openLogin() {
+      document.getElementById('loginEmail').value = currentUserEmail;
+      openModal('loginModal');
+    }
+
+    function updateAccountButton() {
+      document.getElementById('accountButton').textContent = currentUserEmail ? currentUserEmail.split('@')[0] : 'Ingresar';
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', event => {
+      event.preventDefault();
+      currentUserEmail = document.getElementById('loginEmail').value.trim().toLowerCase();
+      localStorage.setItem('lc-user-email', currentUserEmail);
+      closeModal('loginModal');
+      updateAccountButton();
+      toast(isBlocked(currentUserEmail) ? 'Usuario identificado, pero se encuentra bloqueado.' : 'Ingreso correcto. Ya podés reservar y publicar.');
+    });
+
+    function openInstagram() {
+      if (!INSTAGRAM_URL) return toast('Falta cargar el enlace oficial de Instagram.');
+      window.open(INSTAGRAM_URL, '_blank', 'noopener');
+    }
+
+    function openBirthdayWhatsapp() {
+      if (!OFFICIAL_WHATSAPP) return toast('Falta cargar el WhatsApp oficial para consultas de cumpleaños.');
+      const message = encodeURIComponent('Hola, quiero consultar disponibilidad para festejar un cumpleaños en La Masia.');
+      window.open(`https://wa.me/${OFFICIAL_WHATSAPP}?text=${message}`, '_blank', 'noopener');
+    }
+
+    function moveServices(direction) {
+      document.getElementById('servicesCarousel').scrollBy({ left: direction * 260, behavior: 'smooth' });
+    }
+
+    function fillTimeOptions() {
+      const options = playableTimes.map(time => `<option value="${time}">${time}</option>`).join('');
+      document.getElementById('challengeFrom').innerHTML = options;
+      document.getElementById('challengeTo').innerHTML = options;
+      document.getElementById('playerTime').innerHTML = playableTimes.slice(0, -1).map(time => `<option value="${time}">${time}</option>`).join('');
+      document.getElementById('challengeFrom').value = '17:00';
+      document.getElementById('challengeTo').value = '19:00';
+      document.getElementById('playerTime').value = '20:00';
+    }
+
+    function setDateDefaults() {
+      ['dateInput','challengeDate','playerDate'].forEach(id => {
+        const input = document.getElementById(id);
+        input.min = todayISO();
+        if (!input.value) input.value = todayISO();
+      });
+    }
 
     function simulateCancellation() {
       clearInterval(countdownTimer);
@@ -805,13 +1085,14 @@
       if (event.key === 'Escape') document.querySelectorAll('.modal-backdrop.open').forEach(el => closeModal(el.id));
     });
 
-    document.getElementById('dateInput').value = todayISO();
-    document.getElementById('dateInput').min = todayISO();
+    fillTimeOptions();
+    setDateDefaults();
     document.getElementById('dateInput').addEventListener('change', renderSlots);
     document.getElementById('fieldSelect').addEventListener('change', event => { selectedCourt = Number(event.target.value); renderCourts(); renderSlots(); });
     setInterval(() => document.getElementById('clock').textContent = new Date().toLocaleTimeString('es-AR', {hour:'2-digit', minute:'2-digit'}), 1000);
     document.getElementById('clock').textContent = new Date().toLocaleTimeString('es-AR', {hour:'2-digit', minute:'2-digit'});
-    renderCourts(); renderSlots(); renderChallenges();
+    updateAccountButton();
+    renderCourts(); renderSlots(); renderChallenges(); renderPlayerNotices();
   </script>
 </body>
 </html>

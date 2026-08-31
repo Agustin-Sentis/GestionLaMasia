@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La Masia — Centro de control</title>
+  <style>
+    :root { --ink:#101b15; --panel:#17271d; --panel2:#203327; --paper:#f1ebda; --acid:#d9ff43; --orange:#ff7043; --blue:#a6dfff; --muted:#9bac9f; --line:rgba(255,255,255,.13); --red:#ff5d5d; }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--paper); background:var(--ink); font-family:Bahnschrift,"Franklin Gothic Medium","Segoe UI",sans-serif; }
+    button,input,select { font:inherit; }
+    button { color:inherit; }
+    a { color:inherit; text-decoration:none; }
+    .shell { min-height:100vh; display:grid; grid-template-columns:250px 1fr; }
+    aside { position:sticky; top:0; height:100vh; padding:24px 18px; border-right:1px solid var(--line); background:#0d1711; }
+    .brand { display:flex; align-items:center; gap:11px; font-family:Impact,sans-serif; font-size:1.4rem; letter-spacing:.06em; text-transform:uppercase; }
+    .brand img { width:45px; height:45px; object-fit:cover; border:2px solid #e8d77a; border-radius:50%; }
+    .admin-tag { display:inline-block; margin:18px 0 28px; padding:6px 9px; border:1px solid var(--orange); border-radius:99px; color:var(--orange); font-size:.68rem; font-weight:900; letter-spacing:.1em; text-transform:uppercase; }
+    nav { display:grid; gap:7px; }
+    nav a { padding:11px 12px; border-radius:9px; color:#b9c6bc; font-size:.82rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; }
+    nav a:hover { background:var(--panel2); color:var(--acid); }
+    .back { position:absolute; left:18px; right:18px; bottom:22px; padding:10px; border:1px solid var(--line); border-radius:9px; text-align:center; font-size:.75rem; }
+    main { min-width:0; padding:28px clamp(18px,4vw,52px) 80px; }
+    .topbar { display:flex; align-items:end; justify-content:space-between; gap:18px; margin-bottom:30px; }
+    h1,h2,h3,p { margin-top:0; }
+    h1 { margin-bottom:0; font-family:Impact,sans-serif; font-size:clamp(2.8rem,6vw,5.3rem); line-height:.9; font-weight:500; letter-spacing:.02em; text-transform:uppercase; }
+    .live { display:flex; align-items:center; gap:8px; padding:9px 12px; border:1px solid var(--line); border-radius:99px; color:var(--muted); font-size:.75rem; }
+    .live i { width:8px; height:8px; border-radius:50%; background:#2ec765; box-shadow:0 0 0 4px rgba(46,199,101,.15); }
+    section { padding:34px 0; scroll-margin-top:20px; border-top:1px solid var(--line); }
+    section:first-of-type { border-top:0; padding-top:0; }
+    .section-head { display:flex; justify-content:space-between; align-items:end; gap:18px; margin-bottom:18px; }
+    h2 { margin-bottom:0; font-family:Impact,sans-serif; font-size:2.3rem; font-weight:500; letter-spacing:.04em; text-transform:uppercase; }
+    .hint { max-width:420px; margin:0; color:var(--muted); font-family:Georgia,serif; }
+    .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+    .stat { min-height:145px; padding:20px; border:1px solid var(--line); border-radius:16px; background:var(--panel); }
+    .stat b { display:block; margin-top:18px; font-family:Impact,sans-serif; font-size:2.9rem; font-weight:500; }
+    .stat span { color:var(--muted); font-size:.72rem; font-weight:850; text-transform:uppercase; letter-spacing:.08em; }
+    .stat:nth-child(2) b { color:var(--acid); } .stat:nth-child(3) b { color:var(--orange); } .stat:nth-child(4) b { color:var(--blue); }
+    .danger-bar { display:flex; align-items:center; gap:16px; margin-bottom:18px; padding:16px 18px; border:1px solid rgba(255,93,93,.55); border-radius:14px; background:rgba(255,93,93,.08); }
+    .danger-bar .btn { margin-left:auto; }
+    .court-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .court { padding:20px; border:1px solid var(--line); border-radius:16px; background:var(--panel); }
+    .court-top { display:flex; justify-content:space-between; align-items:start; gap:12px; }
+    .court h3 { margin:0; font-family:Impact,sans-serif; font-size:1.7rem; text-transform:uppercase; }
+    .status { display:inline-block; margin-top:24px; padding:6px 9px; border-radius:99px; background:rgba(217,255,67,.12); color:var(--acid); font-size:.68rem; font-weight:900; text-transform:uppercase; }
+    .status.closed { background:rgba(255,93,93,.12); color:var(--red); }
+    .switch { position:relative; width:52px; height:29px; border:0; border-radius:99px; background:#35473b; cursor:pointer; }
+    .switch::after { content:""; position:absolute; top:4px; left:4px; width:21px; height:21px; border-radius:50%; background:var(--paper); transition:.2s; }
+    .switch.on { background:var(--acid); } .switch.on::after { left:27px; background:var(--ink); }
+    .grid-2 { display:grid; grid-template-columns:.75fr 1.25fr; gap:16px; }
+    .card { padding:20px; border:1px solid var(--line); border-radius:16px; background:var(--panel); }
+    .card h3 { font-family:Impact,sans-serif; font-size:1.5rem; font-weight:500; text-transform:uppercase; letter-spacing:.04em; }
+    label { display:block; margin:13px 0 6px; color:#b9c6bc; font-size:.68rem; font-weight:850; text-transform:uppercase; letter-spacing:.07em; }
+    .control { width:100%; padding:11px 12px; border:1px solid #405244; border-radius:9px; background:#0f1c14; color:var(--paper); color-scheme:dark; outline:none; }
+    .control:focus { border-color:var(--acid); box-shadow:0 0 0 3px rgba(217,255,67,.12); }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .btn { padding:10px 14px; border:1.5px solid var(--paper); border-radius:99px; background:transparent; font-size:.72rem; font-weight:900; text-transform:uppercase; letter-spacing:.05em; cursor:pointer; }
+    .btn:hover { background:var(--paper); color:var(--ink); }
+    .btn.primary { border-color:var(--acid); background:var(--acid); color:var(--ink); }
+    .btn.danger { border-color:var(--red); color:var(--red); }
+    form .btn.primary { width:100%; margin-top:16px; }
+    .list { display:grid; gap:9px; }
+    .list-item { display:flex; align-items:center; gap:12px; padding:13px; border:1px solid var(--line); border-radius:11px; background:var(--panel2); }
+    .list-item strong { display:block; }
+    .list-item small { color:var(--muted); }
+    .list-item .btn { margin-left:auto; }
+    .table-wrap { overflow:auto; border:1px solid var(--line); border-radius:14px; }
+    table { width:100%; min-width:850px; border-collapse:collapse; background:var(--panel); }
+    th,td { padding:13px 14px; border-bottom:1px solid var(--line); text-align:left; }
+    th { color:var(--muted); font-size:.65rem; text-transform:uppercase; letter-spacing:.09em; }
+    td { font-size:.82rem; }
+    .pill { display:inline-block; padding:5px 8px; border-radius:99px; background:rgba(217,255,67,.12); color:var(--acid); font-size:.65rem; font-weight:900; }
+    .pill.pending { background:rgba(255,112,67,.12); color:var(--orange); }
+    .actions { display:flex; gap:6px; }
+    .actions button { padding:6px 8px; border:1px solid var(--line); border-radius:7px; background:transparent; cursor:pointer; }
+    .notice { padding:14px; border:1px dashed var(--line); border-radius:12px; color:var(--muted); }
+    .toast { position:fixed; right:22px; bottom:22px; z-index:10; max-width:340px; padding:14px 17px; border:2px solid var(--ink); border-radius:11px; background:var(--acid); color:var(--ink); box-shadow:5px 5px 0 var(--orange); font-weight:850; transform:translateY(140%); opacity:0; transition:.25s; }
+    .toast.show { transform:none; opacity:1; }
+    @media(max-width:980px){ .shell{grid-template-columns:1fr} aside{position:relative;height:auto;border-right:0;border-bottom:1px solid var(--line)} nav{display:flex;overflow:auto}.back{position:static;display:block;margin-top:14px}.stats,.court-grid{grid-template-columns:repeat(2,1fr)} }
+    @media(max-width:650px){ main{padding-inline:14px}.topbar,.section-head{display:block}.live{margin-top:14px;width:max-content}.stats,.court-grid,.grid-2,.form-row{grid-template-columns:1fr}.hint{margin-top:9px} }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside>
+      <a class="brand" href="mvp.html"><img src="assets/logo-la-masia.jpg" alt="La Masia">La Masia</a>
+      <span class="admin-tag">Centro de control</span>
+      <nav><a href="#resumen">Resumen</a><a href="#canchas">Canchas</a><a href="#reservas">Reservas</a><a href="#usuarios">Usuarios</a><a href="#comunidad">Comunidad</a><a href="#eventos">Cumpleaños</a></nav>
+      <a class="back" href="mvp.html">← Volver al sitio público</a>
+    </aside>
+    <main>
+      <header class="topbar"><div><h1>Todo bajo control.</h1></div><div class="live"><i></i> Panel visual · <span id="clock">--:--</span></div></header>
+
+      <section id="resumen">
+        <div class="stats"><article class="stat"><span>Turnos de hoy</span><b>18</b></article><article class="stat"><span>Ocupación</span><b>78%</b></article><article class="stat"><span>Pagos pendientes</span><b>4</b></article><article class="stat"><span>En lista de espera</span><b>7</b></article></div>
+      </section>
+
+      <section id="canchas">
+        <div class="section-head"><h2>Estado de canchas</h2><p class="hint">Abrí, cerrá o bloqueá una cancha completa o solamente un rango horario.</p></div>
+        <div class="danger-bar"><div><strong>Cierre general</strong><br><small>Cierra las tres canchas y evita nuevas reservas.</small></div><button class="btn danger" id="globalClose" onclick="toggleGlobalClose()">Cerrar todo</button></div>
+        <div class="court-grid" id="adminCourts"></div>
+        <div class="grid-2" style="margin-top:16px">
+          <form class="card" id="blockForm"><h3>Bloquear horario</h3><label for="blockCourt">Cancha</label><select class="control" id="blockCourt"><option>Cancha 1</option><option>Cancha 2</option><option>Cancha 3</option><option>Todas</option></select><label for="blockDate">Fecha</label><input class="control" type="date" id="blockDate" required><div class="form-row"><div><label for="blockFrom">Desde</label><select class="control" id="blockFrom"></select></div><div><label for="blockTo">Hasta</label><select class="control" id="blockTo"></select></div></div><label for="blockReason">Motivo</label><input class="control" id="blockReason" placeholder="Mantenimiento, evento, lluvia…" required><button class="btn primary">Bloquear rango</button></form>
+          <div class="card"><h3>Bloqueos programados</h3><div class="list" id="blocksList"></div></div>
+        </div>
+      </section>
+
+      <section id="reservas">
+        <div class="section-head"><h2>Reservas y pagos</h2><p class="hint">Consultá quién alquiló, su contacto, el medio de pago y modificá el estado del turno.</p></div>
+        <div class="table-wrap"><table><thead><tr><th>Horario</th><th>Cancha</th><th>Cliente</th><th>Contacto</th><th>Pago</th><th>Estado</th><th>Acciones</th></tr></thead><tbody id="reservationsBody"></tbody></table></div>
+      </section>
+
+      <section id="usuarios">
+        <div class="section-head"><h2>Usuarios bloqueados</h2><p class="hint">El bloqueo puede aplicarse por email y WhatsApp. En el sistema real se validará en el servidor.</p></div>
+        <div class="grid-2">
+          <form class="card" id="banForm"><h3>Bloquear persona</h3><label for="banEmail">Email</label><input class="control" type="email" id="banEmail" required placeholder="persona@email.com"><label for="banPhone">WhatsApp</label><input class="control" id="banPhone" placeholder="341 555 0000"><label for="banReason">Motivo interno</label><input class="control" id="banReason" required placeholder="Incumplimiento, agresión, deuda…"><button class="btn primary">Bloquear usuario</button></form>
+          <div class="card"><h3>Lista de bloqueo</h3><div class="list" id="blockedList"></div></div>
+        </div>
+      </section>
+
+      <section id="comunidad">
+        <div class="section-head"><h2>Comunidad</h2><p class="hint">Moderá desafíos y avisos de jugadores faltantes antes de conectarlos al backend.</p></div>
+        <div class="grid-2"><div class="card"><h3>Desafíos activos</h3><div class="list" id="challengeAdminList"></div></div><div class="card"><h3>Avisos “Falta uno”</h3><div class="list" id="playersAdminList"></div></div></div>
+      </section>
+
+      <section id="eventos">
+        <div class="section-head"><h2>Consultas de cumpleaños</h2><p class="hint">Bandeja visual para seguir consultas, disponibilidad y contacto humano.</p></div>
+        <div class="table-wrap"><table><thead><tr><th>Fecha solicitada</th><th>Responsable</th><th>Personas</th><th>Contacto</th><th>Estado</th><th>Acción</th></tr></thead><tbody><tr><td>12 sep · 18:00</td><td>Carolina Méndez</td><td>24</td><td>341 555 4401</td><td><span class="pill pending">Nueva</span></td><td><button class="btn">Contactar</button></td></tr><tr><td>20 sep · 16:00</td><td>Martín Ruiz</td><td>18</td><td>341 555 2190</td><td><span class="pill">Confirmada</span></td><td><button class="btn">Ver detalle</button></td></tr></tbody></table></div>
+      </section>
+    </main>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script>
+    const times=['16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00','00:00','01:00','02:00'];
+    let courtState=JSON.parse(localStorage.getItem('lc-court-state')||'{"globalClosed":false,"courts":[true,true,true]}');
+    let blocks=JSON.parse(localStorage.getItem('lc-court-blocks')||'[]');
+    let blocked=JSON.parse(localStorage.getItem('lc-blocked-users')||'[]');
+    let reservations=JSON.parse(localStorage.getItem('lc-admin-reservations')||'null')||[
+      {time:'18:00',court:'Cancha 1',name:'Lucas Fernández',email:'lucas@email.com',phone:'341 555 1010',payment:'Mercado Pago',paid:true,status:'Confirmada'},
+      {time:'19:00',court:'Cancha 2',name:'Sofía Pérez',email:'sofia@email.com',phone:'341 555 2020',payment:'Transferencia',paid:false,status:'Confirmada'},
+      {time:'21:00',court:'Cancha 3',name:'Juan Acosta',email:'juan@email.com',phone:'341 555 3030',payment:'Efectivo',paid:false,status:'Confirmada'}
+    ];
+    const $=id=>document.getElementById(id);
+    const blockForm=$('blockForm');
+    const blockCourt=$('blockCourt');
+    const blockDate=$('blockDate');
+    const blockFrom=$('blockFrom');
+    const blockTo=$('blockTo');
+    const blockReason=$('blockReason');
+    const banForm=$('banForm');
+    const banEmail=$('banEmail');
+    const banPhone=$('banPhone');
+    const banReason=$('banReason');
+    const challengeAdminList=$('challengeAdminList');
+    const playersAdminList=$('playersAdminList');
+    const clockEl=$('clock');
+    const today=()=>new Date().toISOString().slice(0,10);
+    function save(){localStorage.setItem('lc-court-state',JSON.stringify(courtState));localStorage.setItem('lc-court-blocks',JSON.stringify(blocks));localStorage.setItem('lc-blocked-users',JSON.stringify(blocked));localStorage.setItem('lc-admin-reservations',JSON.stringify(reservations));}
+    function toast(message){const el=document.getElementById('toast');el.textContent=message;el.classList.add('show');clearTimeout(el.t);el.t=setTimeout(()=>el.classList.remove('show'),3500)}
+    function renderCourts(){document.getElementById('adminCourts').innerHTML=courtState.courts.map((open,i)=>`<article class="court"><div class="court-top"><div><h3>Cancha ${i+1}</h3><small>Reservas y disponibilidad</small></div><button class="switch ${open&&!courtState.globalClosed?'on':''}" onclick="toggleCourt(${i})" aria-label="Cambiar estado"></button></div><span class="status ${open&&!courtState.globalClosed?'':'closed'}">${open&&!courtState.globalClosed?'Operativa':'Cerrada'}</span></article>`).join('');document.getElementById('globalClose').textContent=courtState.globalClosed?'Abrir todas':'Cerrar todo'}
+    function toggleCourt(index){courtState.courts[index]=!courtState.courts[index];save();renderCourts();toast(`Cancha ${index+1} ${courtState.courts[index]?'habilitada':'cerrada'}.`)}
+    function toggleGlobalClose(){courtState.globalClosed=!courtState.globalClosed;save();renderCourts();toast(courtState.globalClosed?'Todas las canchas quedaron cerradas.':'Las canchas volvieron a su estado individual.')}
+    blockForm.addEventListener('submit',e=>{e.preventDefault();blocks.push({court:blockCourt.value,date:blockDate.value,from:blockFrom.value,to:blockTo.value,reason:blockReason.value});save();e.target.reset();setDefaults();renderBlocks();toast('Bloqueo programado.')});
+    function renderBlocks(){const el=document.getElementById('blocksList');el.innerHTML=blocks.length?blocks.map((b,i)=>`<div class="list-item"><div><strong>${b.court} · ${b.date}</strong><small>${b.from}–${b.to} · ${b.reason}</small></div><button class="btn danger" onclick="removeBlock(${i})">Quitar</button></div>`).join(''):'<div class="notice">No hay bloqueos programados.</div>'}
+    function removeBlock(i){blocks.splice(i,1);save();renderBlocks();toast('Bloqueo eliminado.')}
+    function renderReservations(){document.getElementById('reservationsBody').innerHTML=reservations.map((r,i)=>`<tr><td><strong>${r.time}</strong></td><td>${r.court}</td><td>${r.name}<br><small>${r.email}</small></td><td>${r.phone}</td><td><span class="pill ${r.paid?'':'pending'}">${r.paid?'Pagado':'Pendiente'}</span><br><small>${r.payment}</small></td><td>${r.status}</td><td><div class="actions"><button title="Cambiar pago" onclick="togglePaid(${i})">$</button><button title="Cancelar o reactivar" onclick="toggleReservation(${i})">↻</button></div></td></tr>`).join('')}
+    function togglePaid(i){reservations[i].paid=!reservations[i].paid;save();renderReservations();toast('Estado de pago actualizado.')}
+    function toggleReservation(i){reservations[i].status=reservations[i].status==='Cancelada'?'Confirmada':'Cancelada';save();renderReservations();toast('Estado de reserva actualizado.')}
+    banForm.addEventListener('submit',e=>{e.preventDefault();const email=banEmail.value.trim().toLowerCase();if(blocked.some(x=>x.email===email))return toast('Ese email ya está bloqueado.');blocked.push({email,phone:banPhone.value.trim(),reason:banReason.value.trim(),createdAt:new Date().toISOString()});save();e.target.reset();renderBlocked();toast('Usuario bloqueado para nuevas reservas.')});
+    function renderBlocked(){const el=document.getElementById('blockedList');el.innerHTML=blocked.length?blocked.map((u,i)=>`<div class="list-item"><div><strong>${u.email}</strong><small>${u.phone||'Sin teléfono'} · ${u.reason}</small></div><button class="btn" onclick="unblock(${i})">Habilitar</button></div>`).join(''):'<div class="notice">No hay usuarios bloqueados.</div>'}
+    function unblock(i){blocked.splice(i,1);save();renderBlocked();toast('Usuario habilitado nuevamente.')}
+    function renderCommunity(){const challenges=JSON.parse(localStorage.getItem('lc-challenges-v3')||'[]');const notices=JSON.parse(localStorage.getItem('lc-player-notices')||'[]');challengeAdminList.innerHTML=challenges.length?challenges.map(c=>`<div class="list-item"><div><strong>${c.team}</strong><small>${c.field} · ${c.date} · ${c.from}–${c.to}</small></div><button class="btn danger" onclick="toast('En la versión final se eliminará desde la API.')">Moderar</button></div>`).join(''):'<div class="notice">No hay desafíos guardados en este navegador.</div>';playersAdminList.innerHTML=notices.length?notices.map(n=>`<div class="list-item"><div><strong>${n.team}</strong><small>${n.date} · ${n.time} · faltan ${n.count}</small></div><button class="btn danger" onclick="toast('En la versión final se eliminará desde la API.')">Moderar</button></div>`).join(''):'<div class="notice">No hay avisos guardados en este navegador.</div>'}
+    function setDefaults(){blockDate.min=today();blockDate.value=today();const opts=times.map(t=>`<option>${t}</option>`).join('');blockFrom.innerHTML=opts;blockTo.innerHTML=opts;blockFrom.value='18:00';blockTo.value='20:00'}
+    setInterval(()=>clockEl.textContent=new Date().toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'}),1000);clockEl.textContent=new Date().toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});
+    setDefaults();renderCourts();renderBlocks();renderReservations();renderBlocked();renderCommunity();
+  </script>
+</body>
+</html>
